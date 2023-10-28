@@ -151,8 +151,10 @@ extension GameDetailViewController: DetailPageViewModelDelegate {
         descriptionLabel.text = value.description
         gameID = value.id
         
-        if let url = URL(string: value.backgroundImage) {
-            gameImage.af.setImage(withURL: url)
+        DispatchQueue.main.async {
+            if let url = URL(string: value.backgroundImage) {
+                self.gameImage.af.setImage(withURL: url)
+            }
         }
     }
 }

@@ -35,8 +35,6 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     
      lazy var pageController: UIPageControl = {
         let page = UIPageControl()
-        page.numberOfPages = 5
-        page.currentPage = 0
         page.translatesAutoresizingMaskIntoConstraints = false
         page.pageIndicatorTintColor = .black
         page.currentPageIndicatorTintColor = .systemRed
@@ -47,6 +45,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     var imageListProvider = ImageListProvider()
     var viewmodel: ViewModelProtocol?
     var isSearchActive = false
+    var currentPage = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,9 +93,14 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     }
     
     func autoScrollCollectionView() {
-        Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] _ in
-            // Hücre verilerini güncelleyin
-            self?.twoCollectionView.reloadData()
+            Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] _ in
+                self?.currentPage += 1
+                if self?.currentPage == 4 {
+                    self?.currentPage = 0
+                }
+                self?.pageController.currentPage = self?.currentPage ?? 0
+                let newIndexPath = IndexPath(item: self?.currentPage ?? 0, section: 0)
+                self?.twoCollectionView.scrollToItem(at: newIndexPath, at: .centeredHorizontally, animated: true)
         }
     }
 }
