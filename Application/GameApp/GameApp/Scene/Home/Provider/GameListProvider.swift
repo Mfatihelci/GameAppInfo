@@ -31,6 +31,7 @@ import Alamofire
         }
         let rowAsString = "\(indexPath.row + 1)"
         cell.yaz(value: rowAsString)
+        cell.backgroundColor = UIColor(white: 0.95, alpha: 1)
         cell.layer.borderWidth = 1
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.cornerRadius = 12

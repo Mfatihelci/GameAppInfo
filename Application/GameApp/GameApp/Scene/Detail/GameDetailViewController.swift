@@ -19,13 +19,18 @@ class GameDetailViewController: UIViewController {
     
     private var gameImage: UIImageView = {
         let image = UIImageView()
+        image.layer.cornerRadius = 15
+        image.layer.masksToBounds = true
         return image
     }()
     
     private lazy var favoriteButton: UIButton = {
         let button = UIButton()
-        button.tintColor = .systemYellow
-        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 25), forImageIn: .normal)
+        button.tintColor = .yellow
+        button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30), forImageIn: .normal)
+        //button.isSelected = true
+           // button.setImage(UIImage(systemName: "star.fill"), for: .selected)
+            button.setImage(UIImage(systemName: "star"), for: .normal)
         return button
     }()
     
@@ -106,18 +111,9 @@ class GameDetailViewController: UIViewController {
         makeScroll()
         makeStackView()
         favorite()
-        
+
     }
-    
     private func favorite() {
-        if isFavorite {
-            image = UIImage(systemName: "star")
-            favoriteButton.tintColor = .red
-        }else {
-            image = UIImage(systemName: "star")
-            favoriteButton.tintColor = .green
-        }
-        
         guard let buttonImage = image else { return }
         favoriteButton.setImage(buttonImage, for: .normal)
         //favoriteButton.addTarget(self, action: #selector(favoriteList()), for: .touchUpInside)
@@ -163,7 +159,7 @@ extension GameDetailViewController {
         gameImage.snp.makeConstraints { make in
             make.top.equalTo(view).offset(0)
             make.left.right.equalTo(view).offset(0)
-            make.height.equalTo(view.frame.height/1.8)
+            make.height.equalTo(view.frame.height/1.6)
         }
     }
     private func makeFavorite() {

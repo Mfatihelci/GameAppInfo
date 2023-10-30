@@ -13,7 +13,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
 //MARK: - View
     private var searchBar: UISearchController = {
         let search = UISearchController()
-        search.searchBar.showsCancelButton = false
+        //search.searchBar.showsCancelButton = true
         return search
     }()
     private lazy var collectionView: UICollectionView = {
