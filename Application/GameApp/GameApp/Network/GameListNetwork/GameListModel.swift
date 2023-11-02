@@ -5,16 +5,6 @@
 //  Created by muhammed fatih elçi on 17.10.2023.
 //
 
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
-//   let welcome = try? JSONDecoder().decode(Welcome.self, from: jsonData)
-
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
-//   let welcome = try? JSONDecoder().decode(Welcome.self, from: jsonData)
-
 import Foundation
 
 // MARK: - Welcome
@@ -232,16 +222,12 @@ struct Store: Codable {
 
 // MARK: - Encode/decode helpers
 
-class JSONNull: Codable, Hashable {
+class JSONNull: Codable {
 
     public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
         return true
     }
-
-    public var hashValue: Int {
-        return 0
-    }
-
+   
     public init() {}
 
     public required init(from decoder: Decoder) throws {

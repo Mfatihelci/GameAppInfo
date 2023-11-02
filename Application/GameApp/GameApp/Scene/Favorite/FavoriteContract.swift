@@ -10,18 +10,15 @@ import Foundation
 //MARK: - ViewModel
 protocol FavoriteViewModelProtocol {
     var favoriteDelegate: FavoriteViewModelDelegate? { get set }
-    func load()
-}
-
-enum FavoriteViewModelOutPut  {
-    case showlist([Result])
+    func fetchData() -> [GameFavorite]
+    func fetchDataCount() -> Int
 }
 
 protocol FavoriteViewModelDelegate {
-    func handleOutPut(_ value: FavoriteViewModelOutPut)
+    func handleOutPut(_ value: Result)
 }
 
 //MARK: - FavoriteProvider
 protocol FavoriteProviderProtocol {
-    func update(value: [Result])
+    func update(value: [GameFavorite])
 }

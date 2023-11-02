@@ -24,9 +24,9 @@ class FavoriteViewController: UIViewController {
 
         view.backgroundColor = .white
         title = "Favorite"
-        favoriViewModel?.load()
         configure()
         drawDesing()
+        saveDataCount()
     }
     
     private func configure() {
@@ -39,18 +39,16 @@ class FavoriteViewController: UIViewController {
         view.addSubview(collectionView)
         makeCollectionView()
     }
+    
+    func saveDataCount() {
+        favoriteList.update(value: favoriViewModel?.fetchData() ?? [])
+    }
 
 }
 
 extension FavoriteViewController: FavoriteViewModelDelegate {
-    func handleOutPut(_ value: FavoriteViewModelOutPut) {
-        switch value {
-        case .showlist(let list):
-            favoriteList.update(value: list)
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
+    func handleOutPut(_ value: Result) {
+       
     }
 }
 

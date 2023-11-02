@@ -10,7 +10,7 @@ import Foundation
 final class FavoriteBuilder {
     static func make() -> FavoriteViewController {
         let vc = FavoriteViewController()
-        let viewModel = FavoriteListViewModel(service: GameListService())
+        let viewModel = FavoriteListViewModel()
         vc.favoriViewModel = viewModel
         return vc
     }

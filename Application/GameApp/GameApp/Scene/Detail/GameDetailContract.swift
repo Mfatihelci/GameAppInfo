@@ -11,6 +11,7 @@ import Foundation
 protocol DetailPageViewModelProtocol {
     var delegate: DetailPageViewModelDelegate? { get set}
     func load()
+    func save()
 }
 
 protocol DetailPageViewModelDelegate {

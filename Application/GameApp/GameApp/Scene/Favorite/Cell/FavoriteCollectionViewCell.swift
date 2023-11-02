@@ -78,11 +78,11 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         makeNumber()
     }
     
-    func saveFavorite(value: Result) {
+    func saveFavorite(value: GameFavorite) {
         gameName.text = value.name
-        gameRating.text = "Rating : \(value.rating)"
-        gameReleased.text = "Released : \(value.released)"
-        gameImage.af.setImage(withURL: URL(string: value.backgroundImage)!)
+        gameRating.text = "Rating : \(value.rating ?? "rating")"
+        gameReleased.text = "Released : \(value.released ?? "released")"
+       // gameImage.af.setImage(withURL: URL(string: value.backgroundImage ?? "")!)
     }
     
     func number(value: String) {

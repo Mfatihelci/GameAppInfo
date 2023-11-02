@@ -7,10 +7,12 @@
 
 import Foundation
 import Alamofire
+import CoreData
 
 class DetailPageViewModel {
     
     var id: Int?
+    var favoriteGame: Result?
     var service: GameDetailServiceProtocol?
     var delegate: DetailPageViewModelDelegate?
     init(id: Int?, service: GameDetailServiceProtocol?) {
@@ -20,6 +22,7 @@ class DetailPageViewModel {
 }
 
 extension DetailPageViewModel: DetailPageViewModelProtocol {
+    
     func load() {
         guard let gameID = id else { return }
         service?.fetchAllData(path: gameID, onSucces: { game in
@@ -28,4 +31,23 @@ extension DetailPageViewModel: DetailPageViewModelProtocol {
             print(error.debugDescription)
         })
     }
+    
+    func save() {
+        print("faith")
+        let context = appDelegate.persistentContainer.viewContext
+        let newData = NSEntityDescription.insertNewObject(forEntityName: "GameFavorite", into: context)
+        
+        newData.setValue(favoriteGame?.name, forKey: "name")
+        newData.setValue(favoriteGame?.rating, forKey: "released")
+        newData.setValue(favoriteGame?.rating, forKey: "rating")
+        newData.setValue(favoriteGame?.backgroundImage, forKey: "backgroundImage")
+        do {
+            try context.save()
+            print("success")
+        } catch {
+            print(error)
+        }
+
+    }
+    
 }

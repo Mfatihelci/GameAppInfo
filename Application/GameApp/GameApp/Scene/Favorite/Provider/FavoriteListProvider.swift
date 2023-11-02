@@ -10,7 +10,8 @@ import Alamofire
 
  class FavoriteListProvider: NSObject {
      
-     var favoriList: [Result] = []
+     var favoriList = FavoriteListViewModel()
+     var newDataList: [GameFavorite] = []
      
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let collectionViewWidth = collectionView.bounds.width
@@ -21,11 +22,11 @@ import Alamofire
         
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return favoriList.count
+        return newDataList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let dataList = favoriList[indexPath.row]
+        let dataList = newDataList[indexPath.row]
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCollectionViewCell.Identifier.path.rawValue, for: indexPath) as? FavoriteCollectionViewCell else { return UICollectionViewCell()
         }
         cell.layer.borderWidth = 1
@@ -41,8 +42,8 @@ import Alamofire
 extension FavoriteListProvider: UICollectionViewDelegateFlowLayout,UICollectionViewDataSource { }
 
 extension FavoriteListProvider: FavoriteProviderProtocol {
-    func update(value: [Result]) {
+    func update(value: [GameFavorite]) {
         let data = value
-        favoriList = data
+        newDataList = data
     }
 }

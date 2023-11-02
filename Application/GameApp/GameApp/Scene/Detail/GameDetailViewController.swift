@@ -13,10 +13,10 @@
 import UIKit
 import AlamofireImage
 import SnapKit
+import CoreData
 
 class GameDetailViewController: UIViewController {
 
-    
     private var gameImage: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 15
@@ -29,7 +29,7 @@ class GameDetailViewController: UIViewController {
         button.tintColor = .yellow
         button.setPreferredSymbolConfiguration(UIImage.SymbolConfiguration(pointSize: 30), forImageIn: .normal)
         //button.isSelected = true
-           // button.setImage(UIImage(systemName: "star.fill"), for: .selected)
+            button.setImage(UIImage(systemName: "star.fill"), for: .selected)
             button.setImage(UIImage(systemName: "star"), for: .normal)
         return button
     }()
@@ -89,7 +89,6 @@ class GameDetailViewController: UIViewController {
     var viewModel: DetailPageViewModel?
     var isFavorite = Bool()
     var gameID: Int?
-    var image: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,10 +96,8 @@ class GameDetailViewController: UIViewController {
         view.backgroundColor = .white
         viewModel?.load()
         configure()
-        
+
     }
-    
-    
     private func configure() {
         viewModel?.delegate = self
         view.addSubview(gameImage)
@@ -113,17 +110,24 @@ class GameDetailViewController: UIViewController {
         favorite()
 
     }
-    private func favorite() {
-        guard let buttonImage = image else { return }
-        favoriteButton.setImage(buttonImage, for: .normal)
-        //favoriteButton.addTarget(self, action: #selector(favoriteList()), for: .touchUpInside)
+    func favorite() {
+        favoriteButton.addTarget(self, action: #selector(favoriteSelected(_:)), for: .touchUpInside)
     }
     
-    @objc func favoriteList() {
-        
+    @objc func favoriteSelected(_ favoriteButton: UIButton) {
+        print("tiklandi")
+        isFavorite.toggle() // Durumu tersine çevir
+
+           if isFavorite {
+               viewModel?.save()
+               
+           } else {
+               // Favori kaldırmak istiyorsanız ilgili işlemleri yapın
+           }
+          favoriteButton.isSelected = isFavorite
+        //viewModel?.save()
     }
     private func makeStackView() {
-        
         scrollView.addSubview(stackView)
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(releaseLabel)
